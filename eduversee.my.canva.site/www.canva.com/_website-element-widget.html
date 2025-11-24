@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-IN" class="theme light classic">
+
+<head>
+    <meta charset="utf-8">
+    <title>coursebag</title>
+    <meta name="app-name" content="website_element_widget" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://static.canva.com/web/a0684b0780c739e9.vendor.ltr.css" rel="stylesheet" integrity="sha512-JwMCpiHdk95MoUTatfaZJwstzeDnWfvWMJiwnSxZfPmgeCe4yvQDQ+ONMQjIy/Ht72r0TmlE+gvZnYRnpdLdVg==" crossorigin="anonymous">
+    <link href="https://static.canva.com/web/e91301d7ccce13c1.ltr.css" rel="stylesheet" integrity="sha512-lCp+r2qn0Eyf4YpI7/+jN4ouhuY1leWU/3355mmtYOu+PJ3t96Ly6crlqBOdRr8eVmDIj5NBSlK8QhnWPSh6GQ==" crossorigin="anonymous">
+    <style>
+        @font-face {
+            font-display: swap;
+            font-family: Canva Sans;
+            font-style: normal;
+            font-weight: 400 700;
+            src: url(https://static.canva.com/web/images/a9b8e7902ec1ab885d382156f33738e5.woff2) format("woff2"), url(https://static.canva.com/web/images/013277426f0d555d96c7a75503df5754.woff) format("woff");
+            unicode-range: u+00b1-00b3, u+00b9, u+00bc-00be, u+0394, u+03a9, u+03bc, u+03c0, u+2044, u+2070, u+2074-2089, u+2126, u+212e, u+2153-2154, u+215b-215e, u+2202, u+2206, u+220f, u+2211-2212, u+2215, u+2219, u+221a, u+221e, u+222b, u+2248, u+2260, u+2264-2265, u+25ca
+        }
+
+        @font-face {
+            font-display: swap;
+            font-family: Canva Sans;
+            font-style: normal;
+            font-weight: 400 700;
+            src: url(https://static.canva.com/web/images/d97a6ffa507b670a5b1664f98fc1183d.woff2) format("woff2"), url(https://static.canva.com/web/images/1de7434d86166b0614ff3d61cda11a54.woff) format("woff");
+            unicode-range: u+00a1, u+00aa-00ab, u+00af, u+00b8, u+00ba-00bb, u+00bf, u+00c0-00d6, u+00d8-00f6, u+00f8-0148, u+014a-017e, u+0192, u+01b5-01b6, u+01fc-01fd, u+0218-021b, u+0237, u+02c6-02c7, u+02c9, u+02d8-02dd, u+1e80-1e85, u+1e9e, u+1ef2-1ef3, u+2030, u+2039-203a, u+20ac, u+20ba, u+2113
+        }
+
+        @font-face {
+            font-display: swap;
+            font-family: Canva Sans;
+            font-style: normal;
+            font-weight: 400 700;
+            src: url(https://static.canva.com/web/images/cff149ee1e9d2be50ac77bcd86769d05.woff2) format("woff2"), url(https://static.canva.com/web/images/f93a5165fac252ecfd593929c4e6146f.woff) format("woff");
+            unicode-range: u+0020-007e, u+00a0, u+00a2-00a9, u+00ac-00ae, u+00b0, u+00b4-00b7, u+00d7, u+00f7, u+0300-0304, u+0306-0308, u+030a-030c, u+0312, u+0326-0328, u+2013-2014, u+2018-201a, u+201c-201e, u+2020-2022, u+2026, u+2117, u+2120, u+2122, u+2190-2199, u+fb01-fb02, u+feff, u+fffc-fffd
+        }
+    </style>
+    <link href="https://static.canva.com/web/9835b2f23c36e581.runtime.js" rel="preload" as="script" crossorigin="anonymous" integrity="sha512-UnbGyyT3DLs4vb7JvmjwETI/WjrfduvDIdlEBFF7pDX4lVeDOlyOfEc+SPDF+JSr8xM4lEgDYIaHZl6uU2Lkiw==" nonce="zFJtldnR6c3lRUb+9pI62Q">
+    <link href="https://static.canva.com/web/1194272a367de1cd.s4le6a.vendor.js" rel="preload" as="script" crossorigin="anonymous" integrity="sha512-e65jAyE+7hEzLCnQHY4OERCZtP9JyKI2BwLdZSuaxmOJs7H0ZiQSRldMto5yV/XujnMRZnWjZeEGyzEf3aJGWg==" nonce="zFJtldnR6c3lRUb+9pI62Q">
+    <link href="https://static.canva.com/web/a50a789b7d9ec703.vendor.js" rel="preload" as="script" crossorigin="anonymous" integrity="sha512-IyVEoPVD8/61BcYBgSfx6TmoOtzHpWOUYENYFXf5cr22Y6LGkSNbxWAMuki/OHhI6DURbFuCKTvY24Uv3/9zDw==" nonce="zFJtldnR6c3lRUb+9pI62Q">
+    <link href="https://static.canva.com/web/c32152a293000ef4.strings.js" rel="preload" as="script" crossorigin="anonymous" integrity="sha512-aVqZ9HCuRTDjfHDncuBsYV6MZM56rpc4zuTJigxL31mJJR+FHSJv9RHb67RY8P2LtiMfxYirzhSJa41HrmsTMw==" nonce="zFJtldnR6c3lRUb+9pI62Q">
+    <link href="https://static.canva.com/web/be0c154803ced17f.en-IN.js" rel="preload" as="script" crossorigin="anonymous" integrity="sha512-P7m5udOsbxHxoQyzPtcKpi+8LsO2wGf3sD5ZzvJeyGJNY8l/UKrF8ZbyCX3YMjGP/nh9sqOj++li7RT4pLGY8A==" nonce="zFJtldnR6c3lRUb+9pI62Q">
+    <link href="https://static.canva.com/web/9387e60d71605084.js" rel="preload" as="script" crossorigin="anonymous" integrity="sha512-Mut6ZejjBkDDgXkVjbDT/y2X/CtgHHLiPcwxRfKqpXGMn/MLyGGLOgslmRDSgtOSyxw638AVprMmbXUvkwmD8w==" nonce="zFJtldnR6c3lRUb+9pI62Q">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta property="fb:app_id" content="525265914179580">
+    <meta property="og:site_name" content="Canva">
+    <meta property="og:title" content="Website Element Widget">
+    <meta property="og:image" content="https://static.canva.com/domain-assets/canva/static/images/fb_cover-1.jpg" />
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@canva">
+    <meta name="twitter:creator" content="@canva">
+    <meta name="twitter:title" content="Website Element Widget">
+    <script nonce="zFJtldnR6c3lRUb+9pI62Q">
+        window['__sentry_config__'] = {
+            "dsn": "https:\u002F\u002Fd47854e04f35b40a8f76d35f85579079@o13855.ingest.us.sentry.io\u002F4508474882260992",
+            "release": "20251119-21-8f857c3",
+            "environment": "prod",
+            "autoSessionTracking": true,
+            "initialScope": {
+                "tags": {
+                    "deploymentGroup": "STABLE"
+                }
+            }
+        };
+    </script>
+    <script crossorigin="anonymous" src="https://static.canva.com/web/53540badba4d899c.sentry_browser.js" integrity="sha512-iyW9lwMzdqX6GNQCIS+mkXJcFh2QHKSNAGPJHEKrQuVF5HP1hNYJRfVm5fgnwW7R7iMsg1R8ndI0VdxuBXJ+oA==" nonce="zFJtldnR6c3lRUb+9pI62Q"></script>
+    <meta name="robots" content="noindex">
+    <link rel="shortcut icon" href="https://static.canva.com/domain-assets/canva/static/images/favicon-1.ico">
+    <link rel="icon" href="https://static.canva.com/domain-assets/canva/static/images/android-192x192-2.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="https://static.canva.com/domain-assets/canva/static/images/apple-touch-120x120-1.png">
+    <link rel="apple-touch-icon" href="https://static.canva.com/domain-assets/canva/static/images/apple-touch-152x152-1.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="https://static.canva.com/domain-assets/canva/static/images/apple-touch-167x167-1.png" sizes="167x167">
+    <link rel="apple-touch-icon" href="https://static.canva.com/domain-assets/canva/static/images/apple-touch-180x180-1.png" sizes="180x180">
+</head>
+
+<body>
+    <script nonce="zFJtldnR6c3lRUb+9pI62Q">
+        document.documentElement.classList.replace('adaptive', window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    </script>
+    <div id="root"></div>
+    <script nonce="zFJtldnR6c3lRUb+9pI62Q">
+        (function() {
+            window['__canva_public_path__'] = 'https:\/\/static.canva.com\/web\/';
+            window['bootstrap'] = JSON.parse('{"base":{"A?":"B","L":false,"N":false,"E":"8f857c3cfef41dba2109026c127590ad66f5bbd0","K":1763994904,"F":{"A?":"C","b":"https://d47854e04f35b40a8f76d35f85579079@o13855.ingest.us.sentry.io/4508474882260992","c":0.1,"f":false,"g":"A","i":[],"j":{"A":true},"k":{"A":false,"B":100,"C":30,"D":10},"l":[],"m":0.05},"G":"CLIENT_FULL","I":"A","O":{"A?":"B"},"M":"/_online","R":{"O":false,"L":false,"M":false,"A":false,"B":false,"N":false,"C":"https://www.canva.com/en_in/policies/cookies-policy/","I":"https://www.canva.com/en_in/manage-cookies/","J":"https://www.canva.com/en_in/policies/privacy-policy/","E":[{"A":"B","B":"Canva"},{"A":"B","B":"Castle"},{"A":"B","B":"Cloudflare"},{"A":"B","B":"Google Firebase Crashlytics"},{"A":"B","B":"Google Login"},{"A":"B","B":"Sentry"},{"A":"B","B":"Stripe"},{"A":"C","B":"Canva"},{"A":"C","B":"Branch"},{"A":"C","B":"Drift"},{"A":"C","B":"Optimizely"},{"A":"C","B":"Ada"},{"A":"D","B":"Canva"},{"A":"D","B":"BEN 605"},{"A":"D","B":"Fullstory"},{"A":"D","B":"Google Analytics"},{"A":"D","B":"Google Firebase Analytics"},{"A":"D","B":"Google Firebase Crashlytics"},{"A":"D","B":"Google Firebase Performance"},{"A":"D","B":"Google Optimize"},{"A":"D","B":"Hotjar"},{"A":"D","B":"Innovid"},{"A":"D","B":"LiveRamp"},{"A":"D","B":"Metadata"},{"A":"D","B":"Rokt"},{"A":"E","B":"Amazon"},{"A":"E","B":"Apple Search Ads"},{"A":"E","B":"Appsflyer"},{"A":"E","B":"Baidu"},{"A":"E","B":"Braze"},{"A":"E","B":"Canva"},{"A":"E","B":"Facebook"},{"A":"E","B":"Facebook SDK"},{"A":"E","B":"Google Ads"},{"A":"E","B":"Google DoubleClick"},{"A":"E","B":"Google Firebase"},{"A":"E","B":"Google Tag Manager"},{"A":"E","B":"LinkedIn Insights"},{"A":"E","B":"Microsoft Advertising"},{"A":"E","B":"Outbrain"},{"A":"E","B":"Pardot"},{"A":"E","B":"Pinterest Ads"},{"A":"E","B":"Snapchat"},{"A":"E","B":"TikTok"},{"A":"E","B":"Twitter"},{"A":"E","B":"Yahoo Ad Exchange"},{"A":"E","B":"Youtube"}],"P":[],"Q":[],"W":true},"U":[],"V":[],"a":{"A":"AAQACk1PQklMRV9XRUIAAA==","L":"UAAAAAAAAAA","D":"BAAAAAAAAAA","J":"en-IN","K":"website_element_widget","E":"r-20251121-0051","F":"8f857c3","H":{}},"d":{"A":"wss://www.canva.com/_stream","B":{"A":"AAQACk1PQklMRV9XRUIAAA==","I":"UAAAAAAAAAA","D":"BAAAAAAAAAA","E":"en-IN","F":"website_element_widget","G":"r-20251121-0051","H":"8f857c3"},"C":8388608},"b":{"A?":"N","C":{"a":"MOBILE_WEB"},"D":{"a":"MOBILE_WEB","b":"IN","c":"en-IN","i":"3fa098bf-4d9e-4888-ad28-806f70a9e4bf"},"E":{"CUAR2":"B","BRR":"A","WKDUI":"A","TGB":"C","SSAOF":"B","ROVSC":"A","ROAPS":"B","RMAAL":"B","RHVF":"A","PQTLO":"B","PPSPA":"B","PLPAC":"B","PLOTH":"C","PAPFA":"B","PAACP":"C","OBDAW":"B","MTSLO":"B","MAWE":"C","LOA":"A","LGCPO":"B","LASDP":"A","LASAP":"A","HCASO":"A","GNRO":"D","ESPRA":"A","EPCLO":"A","EOEBF":"B","ENAN":"B","ELTPF":"A","E60S":"C","DWCTA":"B","DSLOC":"A","DIOPB":"B","DIHLO":"B","CSLOU":"A","ASUC":"B","AHRMD":"B","AHPLM":"B","AHBUS":"B","AHBMC":"B","AEXVD":"B","AAEFO":"A"},"I":"web","P":[-58369,3931303],"Q":[-33547948,168103],"R":false,"S":false,"f":{"B":{"A":"GTM-TZPTKRR"},"D":{"A":"16859691037","B":"16859691037"}},"k":false,"n":false,"s":false,"u":false},"f":{"B":"320f7332-8571-45d7-b342-c54192dae547","C":false}},"page":{"A":"DAG5hiffbVQ","B":{"B":{"A?":"B","A":1366.0,"B":5357.0,"C":"D"},"C":{"A":1366.0,"B":5357.0,"C":"D"},"P":"en","A":[{"A?":"i","a":"PBs2t5KmJDj0Tp92","C":{"A":1366.0,"B":5357.0,"C":"D"},"D":{"D":1.0},"E":[{"A?":"BC","D":1366.0,"C":5357.0,"_":"LBQxjZT6xWtW7Ykn","b":1366.0,"a":5357.0,"z":{"A":{"A":"w:JR4G8hDDg","B":1}},"y":{"A":{"A?":"S","A":{"A":"https://www.canva-hosted-embed.com/codelet/bty5tr54vs7d8k59","C":"F"}},"c":{"A?":"A","A":"{\\"site_name\\":\\"Course Bag\\",\\"tagline\\":\\"Free Online Learning\\",\\"hero_title\\":\\"Empower Yourself with Free Online Courses\\",\\"hero_subtitle\\":\\"Join millions of learners worldwide. Master new skills with 5,000+ free courses. Get certified. Transform your future.\\",\\"cta_primary\\":\\"Browse All Courses\\",\\"background_color\\":\\"#f8fafc\\",\\"surface_color\\":\\"#ffffff\\",\\"text_color\\":\\"#1e293b\\",\\"primary_color\\":\\"#10b981\\",\\"accent_color\\":\\"#f59e0b\\",\\"font_family\\":\\"Inter\\",\\"font_size\\":16}"},"i":{"A?":"A","A":"bty5tr54vs7d8k59"}}}]}]},"G":[{"A":"https://www.canva-hosted-embed.com/codelet/bty5tr54vs7d8k59","B":"Canva","D":1763994904343,"E":"\x3ciframe src=\\"https://bty5tr54vs7d8k59.canva-hosted-embed.com/codelet/AAEAEGJ0eTV0cjU0dnM3ZDhrNTkAAAAAAZq7cIMX4G9AjR39ccVTfkp-bnSwDM6Qu3PM1DGSX0uIbx8XOXc/\\" sandbox=\\"allow-same-origin allow-scripts allow-popups allow-forms\\" allowfullscreen=\\"true\\" width=\\"800\\" height=\\"450\\" style=\\"position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;\\" allow=\\"fullscreen\\">\x3c/iframe>","F":800,"G":450,"K":"Canva","L":"https://www.canva.com","M":900}],"H":"DAG5hiffbVQ","F":"eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIiwia2lkIjoia2lkLTE3NDAwODM2MjAyNzEifQ..rGn690boqUyIkaFC.VuZ-TfxDHyyX448oDfvUMk0S4XEhCpDlAj8bxF8vuM2lXjvpyxpitZwwB2dFz9zRVwKiKdWveg.GH5IObzvwO63ZwWF2SnTvw"},"ui":{"N":false,"A":true,"B":"A","C":false,"D":false,"K":"A","I":false,"J":false,"P":false}}');
+            window['flags'] = JSON.parse('{"4692c15f":true}');
+            window['cmsg'] = window['cmsg'] || {
+                locale: "en-IN",
+                strings: {}
+            };
+            window['__batch_chunks__'] = true;
+        })();
+    </script>
+    <script crossorigin="anonymous" src="https://static.canva.com/web/9835b2f23c36e581.runtime.js" defer integrity="sha512-UnbGyyT3DLs4vb7JvmjwETI/WjrfduvDIdlEBFF7pDX4lVeDOlyOfEc+SPDF+JSr8xM4lEgDYIaHZl6uU2Lkiw==" nonce="zFJtldnR6c3lRUb+9pI62Q"></script>
+    <script crossorigin="anonymous" src="https://static.canva.com/web/1194272a367de1cd.s4le6a.vendor.js" defer integrity="sha512-e65jAyE+7hEzLCnQHY4OERCZtP9JyKI2BwLdZSuaxmOJs7H0ZiQSRldMto5yV/XujnMRZnWjZeEGyzEf3aJGWg==" nonce="zFJtldnR6c3lRUb+9pI62Q"></script>
+    <script crossorigin="anonymous" src="https://static.canva.com/web/a50a789b7d9ec703.vendor.js" defer integrity="sha512-IyVEoPVD8/61BcYBgSfx6TmoOtzHpWOUYENYFXf5cr22Y6LGkSNbxWAMuki/OHhI6DURbFuCKTvY24Uv3/9zDw==" nonce="zFJtldnR6c3lRUb+9pI62Q"></script>
+    <script crossorigin="anonymous" src="https://static.canva.com/web/c32152a293000ef4.strings.js" integrity="sha512-aVqZ9HCuRTDjfHDncuBsYV6MZM56rpc4zuTJigxL31mJJR+FHSJv9RHb67RY8P2LtiMfxYirzhSJa41HrmsTMw==" nonce="zFJtldnR6c3lRUb+9pI62Q"></script>
+    <script crossorigin="anonymous" src="https://static.canva.com/web/be0c154803ced17f.en-IN.js" integrity="sha512-P7m5udOsbxHxoQyzPtcKpi+8LsO2wGf3sD5ZzvJeyGJNY8l/UKrF8ZbyCX3YMjGP/nh9sqOj++li7RT4pLGY8A==" nonce="zFJtldnR6c3lRUb+9pI62Q"></script>
+    <script crossorigin="anonymous" src="https://static.canva.com/web/9387e60d71605084.js" defer integrity="sha512-Mut6ZejjBkDDgXkVjbDT/y2X/CtgHHLiPcwxRfKqpXGMn/MLyGGLOgslmRDSgtOSyxw638AVprMmbXUvkwmD8w==" nonce="zFJtldnR6c3lRUb+9pI62Q"></script>
+    <script nonce="zFJtldnR6c3lRUb+9pI62Q">
+        (function() {
+            function c() {
+                var b = a.contentDocument || a.contentWindow.document;
+                if (b) {
+                    var d = b.createElement('script');
+                    d.nonce = 'zFJtldnR6c3lRUb+9pI62Q';
+                    d.innerHTML = "window.__CF$cv$params={r:'9a39a1768cc040f3',t:'MTc2Mzk5NDkwNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='zFJtldnR6c3lRUb+9pI62Q';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+                    b.getElementsByTagName('head')[0].appendChild(d)
+                }
+            }
+            if (document.body) {
+                var a = document.createElement('iframe');
+                a.height = 1;
+                a.width = 1;
+                a.style.position = 'absolute';
+                a.style.top = 0;
+                a.style.left = 0;
+                a.style.border = 'none';
+                a.style.visibility = 'hidden';
+                document.body.appendChild(a);
+                if ('loading' !== document.readyState) c();
+                else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c);
+                else {
+                    var e = document.onreadystatechange || function() {};
+                    document.onreadystatechange = function(b) {
+                        e(b);
+                        'loading' !== document.readyState && (document.onreadystatechange = e, c())
+                    }
+                }
+            }
+        })();
+    </script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" nonce="zFJtldnR6c3lRUb+9pI62Q"
+        data-cf-beacon='{"rayId":"9a39a1768cc040f3","version":"2025.9.1","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"token":"ef88e2b2e2894e859fa7553dc8d0441c","b":1}' crossorigin="anonymous"></script>
+</body>
+
+</html>

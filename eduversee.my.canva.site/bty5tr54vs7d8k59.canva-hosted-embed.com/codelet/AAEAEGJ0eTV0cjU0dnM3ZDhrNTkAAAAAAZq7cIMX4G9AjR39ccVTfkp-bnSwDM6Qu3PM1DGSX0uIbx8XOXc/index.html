@@ -1,0 +1,3563 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduVerse - Free Online Courses &amp; Certification</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            color: #1e293b;
+            background: #f8fafc;
+            height: 100%;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Header */
+
+        header {
+            background: #ffffff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .top-bar {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            text-align: center;
+            padding: 0.7rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #10b981;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 600;
+            transition: color 0.3s;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #10b981;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .user-menu {
+            display: none;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-menu.active {
+            display: flex;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 0.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            min-width: 220px;
+            display: none;
+            overflow: hidden;
+        }
+
+        .dropdown-menu.active {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .dropdown-item:hover {
+            background: #f8fafc;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+            color: #dc2626;
+        }
+
+        .btn {
+            padding: 0.7rem 1.8rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.95rem;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #10b981;
+            color: #10b981;
+        }
+
+        .btn-outline:hover {
+            background: #10b981;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: #10b981;
+            color: white;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-primary:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: #f59e0b;
+            color: white;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+        }
+
+        /* Loading Spinner */
+
+        .spinner {
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid #10b981;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-left: 0.5rem;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Toast Notification */
+
+        .toast {
+            position: fixed;
+            top: 5rem;
+            right: 2rem;
+            background: white;
+            padding: 1.2rem 1.8rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            display: none;
+            align-items: center;
+            gap: 1rem;
+            z-index: 2000;
+            animation: slideIn 0.3s ease-out;
+            min-width: 300px;
+        }
+
+        .toast.show {
+            display: flex;
+        }
+
+        .toast.success {
+            border-left: 4px solid #10b981;
+        }
+
+        .toast.error {
+            border-left: 4px solid #dc2626;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Pages */
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Hero Section */
+
+        .hero {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin: 0 0 1.5rem 0;
+            line-height: 1.15;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin: 0 0 2.5rem 0;
+            line-height: 1.7;
+            opacity: 0.95;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .hero .btn {
+            font-size: 1.1rem;
+            padding: 1.1rem 2.5rem;
+        }
+
+        .hero-image {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+            font-size: 10rem;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Stats Bar */
+
+        .stats-bar {
+            background: white;
+            padding: 3rem 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-top: -2rem;
+            position: relative;
+            z-index: 10;
+            border-radius: 16px;
+            max-width: 1300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0 0 0.5rem 0;
+            font-weight: 800;
+        }
+
+        .stat-item p {
+            margin: 0;
+            color: #64748b;
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        /* Section */
+
+        .section {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            margin: 0 0 1rem 0;
+            color: #1e293b;
+            font-weight: 800;
+        }
+
+        .section-subtitle {
+            font-size: 1.15rem;
+            color: #64748b;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        /* Category Grid */
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .category-card {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            border: 2px solid transparent;
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(16, 185, 129, 0.2);
+            border-color: #10b981;
+        }
+
+        .category-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .category-card h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.15rem;
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+        .category-card p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        /* Course Grid */
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .course-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+            border-color: #10b981;
+        }
+
+        .enrolled-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: #10b981;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 24px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .course-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4.5rem;
+            position: relative;
+        }
+
+        .course-level {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: white;
+            color: #10b981;
+            padding: 0.5rem 1rem;
+            border-radius: 24px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .course-content {
+            padding: 1.8rem;
+        }
+
+        .course-category {
+            display: inline-block;
+            background: #dcfce7;
+            color: #166534;
+            padding: 0.4rem 1rem;
+            border-radius: 24px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .course-card h3 {
+            margin: 0 0 1rem 0;
+            font-size: 1.25rem;
+            color: #1e293b;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .course-card p {
+            margin: 0 0 1.5rem 0;
+            font-size: 0.95rem;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .course-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.2rem;
+            border-top: 2px solid #f1f5f9;
+        }
+
+        .course-meta {
+            display: flex;
+            gap: 1.2rem;
+            font-size: 0.85rem;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .course-rating {
+            color: #fbbf24;
+            font-weight: 700;
+        }
+
+        .buy-badge {
+            background: #10b981;
+            color: white;
+            padding: 0.6rem 1.4rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .buy-badge:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+
+        .buy-badge.enrolled {
+            background: #64748b;
+            cursor: default;
+        }
+
+        .buy-badge.enrolled:hover {
+            transform: none;
+        }
+
+        /* Course Detail */
+
+        .course-detail {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-detail-header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 3.5rem 3rem;
+        }
+
+        .course-detail-header h1 {
+            font-size: 2.8rem;
+            margin: 0 0 1rem 0;
+            font-weight: 800;
+        }
+
+        .course-detail-header p {
+            font-size: 1.25rem;
+            margin: 0 0 2rem 0;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .course-detail-meta {
+            display: flex;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .course-detail-body {
+            padding: 3rem;
+        }
+
+        .course-section {
+            margin-bottom: 3rem;
+        }
+
+        .course-section h2 {
+            font-size: 2rem;
+            margin: 0 0 1.2rem 0;
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+        .course-modules {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .course-module {
+            background: #f8fafc;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            border-left: 4px solid #10b981;
+            transition: all 0.3s;
+        }
+
+        .course-module:hover {
+            background: #f1f5f9;
+            transform: translateX(4px);
+        }
+
+        .course-module h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.05rem;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .course-module p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        /* Search Page */
+
+        .search-header {
+            background: white;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+        }
+
+        .search-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 1.2rem 1.5rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: #10b981;
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filters select {
+            padding: 1rem 1.5rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            background: white;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        /* Auth Pages */
+
+        .auth-container {
+            max-width: 520px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .auth-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        .auth-card h1 {
+            text-align: center;
+            margin: 0 0 0.5rem 0;
+            font-size: 2.2rem;
+            color: #1e293b;
+            font-weight: 800;
+        }
+
+        .auth-card .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin: 0 0 2rem 0;
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #1e293b;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #10b981;
+        }
+
+        .error-message {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 42%;
+            height: 1px;
+            background: #e2e8f0;
+        }
+
+        .divider::before {
+            left: 0;
+        }
+
+        .divider::after {
+            right: 0;
+        }
+
+        .social-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-btn {
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: #475569;
+        }
+
+        .social-btn:hover {
+            background: #f8fafc;
+            border-color: #10b981;
+        }
+
+        .auth-link {
+            text-align: center;
+            margin-top: 2rem;
+            color: #64748b;
+        }
+
+        .auth-link a {
+            color: #10b981;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .auth-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Dashboard */
+
+        .dashboard-header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .dashboard-header h1 {
+            font-size: 2.5rem;
+            margin: 0 0 0.5rem 0;
+            font-weight: 800;
+        }
+
+        .dashboard-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.8rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover,
+        .tab-btn.active {
+            background: white;
+            color: #10b981;
+            border-color: white;
+        }
+
+        .dashboard-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .empty-state-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin: 0 0 1rem 0;
+            color: #1e293b;
+        }
+
+        .empty-state p {
+            color: #64748b;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+
+        footer {
+            background: #1e293b;
+            color: white;
+            padding: 4rem 2rem 2rem;
+            margin-top: 6rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            margin: 0 0 1.5rem 0;
+            color: #10b981;
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        .footer-section p {
+            color: #cbd5e1;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* About Page */
+
+        .about-hero {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .about-hero h1 {
+            font-size: 3rem;
+            margin: 0 0 1rem 0;
+            font-weight: 800;
+        }
+
+        .about-content {
+            max-width: 1100px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .about-content h2 {
+            font-size: 2.2rem;
+            margin: 2.5rem 0 1.2rem 0;
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #64748b;
+            margin-bottom: 1.5rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .feature-card h3 {
+            margin: 0 0 1rem 0;
+            font-size: 1.3rem;
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            margin: 0;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 1024px) {
+            .category-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .course-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+            .hero-image {
+                display: none;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .social-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <style>
+        @view-transition {
+            navigation: auto;
+        }
+    </style>
+    <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+    <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+</head>
+
+<body>
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"><span id="toast-icon"></span> <span id="toast-message"></span>
+    </div>
+    <header>
+        <div class="top-bar">
+            🎉 New Courses Added Daily - Join 30M+ Learners - Start Learning Today!
+        </div>
+        <nav><a href="#" class="logo" id="site-name" data-page="home">EduVerse</a>
+            <ul class="nav-links">
+                <li><a data-page="home" class="active">Home</a></li>
+                <li><a data-page="courses">Courses</a></li>
+                <li><a data-page="categories">Categories</a></li>
+                <li><a data-page="about">About</a></li>
+                <li><a data-page="contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions" id="guest-actions"><button class="btn btn-outline" data-page="signin">Sign In</button> <button class="btn btn-primary" data-page="signup">Sign Up</button>
+            </div>
+            <div class="nav-actions user-menu" id="user-actions"><button class="btn btn-outline" data-page="dashboard">My Learning</button>
+                <div class="user-avatar" id="user-avatar">
+                    <div class="dropdown-menu" id="dropdown-menu">
+                        <div class="dropdown-item" data-page="dashboard">
+                            📚 My Courses
+                        </div>
+                        <div class="dropdown-item" id="logout-btn">
+                            🚪 Logout
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <!-- HOME PAGE -->
+        <div class="page active" id="home-page">
+            <section class="hero">
+                <div class="hero-content">
+                    <div>
+                        <h1 id="hero-title">Empower Yourself with Free Online Courses</h1>
+                        <p id="hero-subtitle">Join millions of learners worldwide. Master new skills with 5,000+ free courses. Get certified. Transform your future.</p>
+                        <div class="hero-buttons"><button class="btn btn-secondary" id="cta-primary" data-page="courses">Browse All Courses</button> <button class="btn btn-outline" style="background: rgba(255,255,255,0.15); border-color: white; color: white;" data-page="signup">Sign Up Free</button>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        🎓
+                    </div>
+                </div>
+            </section>
+            <div class="stats-bar">
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <h3 id="stat-users">30M+</h3>
+                        <p>Active Learners</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>5,000+</h3>
+                        <p>Free Courses</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>195</h3>
+                        <p>Countries</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 id="stat-enrollments">25M+</h3>
+                        <p>Enrollments</p>
+                    </div>
+                </div>
+            </div>
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Popular Categories</h2>
+                    <p class="section-subtitle">Explore diverse learning paths across all industries</p>
+                </div>
+                <div class="category-grid">
+                    <div class="category-card" data-category="business">
+                        <div class="category-icon">
+                            💼
+                        </div>
+                        <h3>Business &amp; Management</h3>
+                        <p>850+ Courses</p>
+                    </div>
+                    <div class="category-card" data-category="technology">
+                        <div class="category-icon">
+                            💻
+                        </div>
+                        <h3>IT &amp; Software</h3>
+                        <p>1,200+ Courses</p>
+                    </div>
+                    <div class="category-card" data-category="health">
+                        <div class="category-icon">
+                            🏥
+                        </div>
+                        <h3>Health &amp; Wellness</h3>
+                        <p>650+ Courses</p>
+                    </div>
+                    <div class="category-card" data-category="marketing">
+                        <div class="category-icon">
+                            📈
+                        </div>
+                        <h3>Marketing &amp; Sales</h3>
+                        <p>720+ Courses</p>
+                    </div>
+                    <div class="category-card" data-category="languages">
+                        <div class="category-icon">
+                            🌍
+                        </div>
+                        <h3>Languages</h3>
+                        <p>420+ Courses</p>
+                    </div>
+                    <div class="category-card" data-category="design">
+                        <div class="category-icon">
+                            🎨
+                        </div>
+                        <h3>Design &amp; Creative</h3>
+                        <p>580+ Courses</p>
+                    </div>
+                    <div class="category-card" data-category="finance">
+                        <div class="category-icon">
+                            💰
+                        </div>
+                        <h3>Finance &amp; Accounting</h3>
+                        <p>490+ Courses</p>
+                    </div>
+                    <div class="category-card" data-category="personal">
+                        <div class="category-icon">
+                            ✨
+                        </div>
+                        <h3>Personal Development</h3>
+                        <p>380+ Courses</p>
+                    </div>
+                </div>
+            </section>
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Featured Courses</h2>
+                    <p class="section-subtitle">Most popular courses this month</p>
+                </div>
+                <div class="course-grid" id="featured-courses"></div>
+                <div style="text-align: center; margin-top: 3rem;"><button class="btn btn-primary" data-page="courses" style="font-size: 1.1rem; padding: 1rem 2.5rem;">View All Courses</button>
+                </div>
+            </section>
+        </div>
+        <!-- COURSES PAGE -->
+        <div class="page" id="courses-page">
+            <div class="search-header">
+                <div class="search-container">
+                    <h1 style="margin: 0 0 1.5rem 0; font-size: 2.2rem; color: #1e293b; font-weight: 800;">Explore All Courses</h1>
+                    <div class="search-bar"><input type="text" id="search-input" placeholder="Search for courses, skills, or topics..."> <button class="btn btn-primary">Search</button>
+                    </div>
+                    <div class="filters"><select id="category-filter"> <option value="all">All Categories</option> <option value="business">Business &amp; Management</option> <option value="technology">IT &amp; Software</option> <option value="health">Health &amp; Wellness</option> <option value="marketing">Marketing &amp; Sales</option> <option value="languages">Languages</option> <option value="design">Design &amp; Creative</option> <option value="finance">Finance &amp; Accounting</option> <option value="personal">Personal Development</option> </select>                        <select id="level-filter"> <option value="all">All Levels</option> <option value="beginner">Beginner</option> <option value="intermediate">Intermediate</option> <option value="advanced">Advanced</option> </select> <select id="duration-filter"> <option value="all">Any Duration</option> <option value="short">1-5 hours</option> <option value="medium">5-20 hours</option> <option value="long">20+ hours</option> </select>
+                    </div>
+                </div>
+            </div>
+            <section class="section">
+                <div class="course-grid" id="all-courses"></div>
+            </section>
+        </div>
+        <!-- CATEGORIES PAGE -->
+        <div class="page" id="categories-page">
+            <div class="about-hero">
+                <h1>Browse by Category</h1>
+                <p>Find the perfect course in your field of interest</p>
+            </div>
+            <section class="section">
+                <div class="category-grid">
+                    <div class="category-card" data-category="business">
+                        <div class="category-icon">
+                            💼
+                        </div>
+                        <h3>Business &amp; Management</h3>
+                        <p style="margin: 0.5rem 0;">Leadership, Strategy, HR, Operations</p>
+                        <p style="font-weight: 700; color: #10b981;">850+ Courses</p>
+                    </div>
+                    <div class="category-card" data-category="technology">
+                        <div class="category-icon">
+                            💻
+                        </div>
+                        <h3>IT &amp; Software</h3>
+                        <p style="margin: 0.5rem 0;">Programming, Web Dev, Data Science, AI</p>
+                        <p style="font-weight: 700; color: #10b981;">1,200+ Courses</p>
+                    </div>
+                    <div class="category-card" data-category="health">
+                        <div class="category-icon">
+                            🏥
+                        </div>
+                        <h3>Health &amp; Wellness</h3>
+                        <p style="margin: 0.5rem 0;">Nursing, Nutrition, Mental Health, Fitness</p>
+                        <p style="font-weight: 700; color: #10b981;">650+ Courses</p>
+                    </div>
+                    <div class="category-card" data-category="marketing">
+                        <div class="category-icon">
+                            📈
+                        </div>
+                        <h3>Marketing &amp; Sales</h3>
+                        <p style="margin: 0.5rem 0;">Digital Marketing, SEO, Social Media</p>
+                        <p style="font-weight: 700; color: #10b981;">720+ Courses</p>
+                    </div>
+                    <div class="category-card" data-category="languages">
+                        <div class="category-icon">
+                            🌍
+                        </div>
+                        <h3>Languages</h3>
+                        <p style="margin: 0.5rem 0;">English, Spanish, French, German, More</p>
+                        <p style="font-weight: 700; color: #10b981;">420+ Courses</p>
+                    </div>
+                    <div class="category-card" data-category="design">
+                        <div class="category-icon">
+                            🎨
+                        </div>
+                        <h3>Design &amp; Creative</h3>
+                        <p style="margin: 0.5rem 0;">Graphic Design, UI/UX, Photography</p>
+                        <p style="font-weight: 700; color: #10b981;">580+ Courses</p>
+                    </div>
+                    <div class="category-card" data-category="finance">
+                        <div class="category-icon">
+                            💰
+                        </div>
+                        <h3>Finance &amp; Accounting</h3>
+                        <p style="margin: 0.5rem 0;">Accounting, Investment, Personal Finance</p>
+                        <p style="font-weight: 700; color: #10b981;">490+ Courses</p>
+                    </div>
+                    <div class="category-card" data-category="personal">
+                        <div class="category-icon">
+                            ✨
+                        </div>
+                        <h3>Personal Development</h3>
+                        <p style="margin: 0.5rem 0;">Leadership, Time Management, Skills</p>
+                        <p style="font-weight: 700; color: #10b981;">380+ Courses</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- ABOUT PAGE -->
+        <div class="page" id="about-page">
+            <div class="about-hero">
+                <h1>About EduVerse</h1>
+                <p>Empowering the world through free education</p>
+            </div>
+            <div class="about-content">
+                <h2>Our Mission</h2>
+                <p>At EduVerse, we believe education should be accessible to everyone, everywhere. Our mission is to empower individuals worldwide with free, high-quality online courses that help them develop new skills, advance their careers, and transform
+                    their lives.</p>
+                <p>Founded in 2024, we've grown to become one of the world's leading free online learning platforms, serving over 30 million learners across 195 countries. Every day, thousands of people use EduVerse to gain new skills, earn certifications,
+                    and unlock new opportunities.</p>
+                <h2>Why Choose EduVerse?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            🎓
+                        </div>
+                        <h3>100% Free Forever</h3>
+                        <p>All courses completely free. No hidden fees, no subscriptions. Quality education for everyone.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            📜
+                        </div>
+                        <h3>Earn Certificates</h3>
+                        <p>Get certified upon course completion. Share on LinkedIn and boost your career prospects.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            ⏰
+                        </div>
+                        <h3>Learn at Your Pace</h3>
+                        <p>Study whenever suits you. Lifetime access to all course materials and resources.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            🌍
+                        </div>
+                        <h3>Global Community</h3>
+                        <p>Join 30 million learners from 195 countries. Connect, collaborate, and grow together.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            👨‍🏫
+                        </div>
+                        <h3>Expert Instructors</h3>
+                        <p>Learn from industry professionals and subject matter experts with real-world experience.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            📱
+                        </div>
+                        <h3>Mobile Friendly</h3>
+                        <p>Access courses on any device - desktop, tablet, or smartphone. Learn anywhere, anytime.</p>
+                    </div>
+                </div>
+                <h2>Our Impact</h2>
+                <p>Since our inception, EduVerse has helped millions of people improve their lives through education. Our learners have:</p>
+                <ul style="line-height: 2; color: #64748b; font-size: 1.1rem; padding-left: 2rem;">
+                    <li>Launched new careers in growing industries</li>
+                    <li>Earned promotions and increased their salaries</li>
+                    <li>Started successful businesses</li>
+                    <li>Transitioned to new career paths</li>
+                    <li>Developed essential workplace skills</li>
+                    <li>Gained confidence and knowledge</li>
+                </ul>
+                <p>We're committed to democratizing education and creating opportunities for all. Join us on this mission to transform lives through learning.</p>
+            </div>
+        </div>
+        <!-- CONTACT PAGE -->
+        <div class="page" id="contact-page">
+            <div class="about-hero">
+                <h1>Contact Us</h1>
+                <p>We'd love to hear from you</p>
+            </div>
+            <div class="auth-container" style="max-width: 900px;">
+                <div class="auth-card">
+                    <div class="error-message" id="contact-error"></div>
+                    <form id="contact-form">
+                        <div class="form-group"><label for="contact-name">Full Name *</label> <input type="text" id="contact-name" required>
+                        </div>
+                        <div class="form-group"><label for="contact-email">Email Address *</label> <input type="email" id="contact-email" required>
+                        </div>
+                        <div class="form-group"><label for="subject">Subject *</label> <select id="subject" required> <option value="">Select a subject</option> <option value="general">General Inquiry</option> <option value="course">Course Question</option> <option value="technical">Technical Support</option> <option value="partnership">Partnership</option> <option value="feedback">Feedback</option> </select>
+                        </div>
+                        <div class="form-group"><label for="message">Message *</label> <textarea id="message" required></textarea>
+                        </div><button type="submit" class="btn btn-primary" id="contact-submit" style="width: 100%; font-size: 1.1rem;">Send Message</button>
+                    </form>
+                </div>
+                <div class="features-grid" style="margin-top: 3rem;">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            📧
+                        </div>
+                        <h3>Email Support</h3>
+                        <p>support@eduverse.com<br> Available 24/7</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            ���
+                        </div>
+                        <h3>Live Chat</h3>
+                        <p>Chat with our support team<br> Mon-Fri, 9am-6pm</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            📚
+                        </div>
+                        <h3>Help Center</h3>
+                        <p>Browse FAQs and guides<br> Self-service support</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- SIGN IN PAGE -->
+        <div class="page" id="signin-page">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h1>Welcome Back</h1>
+                    <p class="subtitle">Sign in to continue your learning journey</p>
+                    <div class="error-message" id="signin-error"></div>
+                    <div class="social-buttons"><button class="social-btn" onclick="showToast('🔵 Social login is a demo feature', 'error')"> <span style="font-size: 1.2rem;">🔵</span> Google </button> <button class="social-btn" onclick="showToast('📘 Social login is a demo feature', 'error')"> <span style="font-size: 1.2rem;">📘</span> Facebook </button>
+                    </div>
+                    <div class="divider">
+                        OR
+                    </div>
+                    <form id="signin-form">
+                        <div class="form-group"><label for="signin-email">Email Address *</label> <input type="email" id="signin-email" required>
+                        </div>
+                        <div class="form-group"><label for="signin-password">Password *</label> <input type="password" id="signin-password" required>
+                        </div><button type="submit" class="btn btn-primary" id="signin-submit" style="width: 100%; font-size: 1.05rem;">Sign In</button>
+                    </form>
+                    <div class="auth-link">
+                        Don't have an account? <a href="#" data-page="signup">Sign Up Free</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- SIGN UP PAGE -->
+        <div class="page" id="signup-page">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h1>Create Your Account</h1>
+                    <p class="subtitle">Join 30 million learners worldwide</p>
+                    <div class="error-message" id="signup-error"></div>
+                    <div class="social-buttons"><button class="social-btn" onclick="showToast('��� Social login is a demo feature', 'error')"> <span style="font-size: 1.2rem;">🔵</span> Google </button> <button class="social-btn" onclick="showToast('📘 Social login is a demo feature', 'error')"> <span style="font-size: 1.2rem;">📘</span> Facebook </button>
+                    </div>
+                    <div class="divider">
+                        OR
+                    </div>
+                    <form id="signup-form">
+                        <div class="form-group"><label for="signup-name">Full Name *</label> <input type="text" id="signup-name" required>
+                        </div>
+                        <div class="form-group"><label for="signup-email">Email Address *</label> <input type="email" id="signup-email" required>
+                        </div>
+                        <div class="form-group"><label for="signup-password">Password *</label> <input type="password" id="signup-password" required minlength="6">
+                        </div>
+                        <div class="form-group"><label for="signup-confirm">Confirm Password *</label> <input type="password" id="signup-confirm" required minlength="6">
+                        </div><button type="submit" class="btn btn-primary" id="signup-submit" style="width: 100%; font-size: 1.05rem;">Create Account</button>
+                    </form>
+                    <div class="auth-link">
+                        Already have an account? <a href="#" data-page="signin">Sign In</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- DASHBOARD PAGE -->
+        <div class="page" id="dashboard-page">
+            <div class="dashboard-header">
+                <div class="dashboard-header-content">
+                    <h1>Welcome back, <span id="dashboard-username"></span>! 👋</h1>
+                    <p>Continue your learning journey</p>
+                    <div class="dashboard-tabs"><button class="tab-btn active" data-tab="enrolled">My Courses</button> <button class="tab-btn" data-tab="completed">Completed</button> <button class="tab-btn" data-tab="certificates">Certificates</button>
+                    </div>
+                </div>
+            </div>
+            <div class="dashboard-content">
+                <div class="tab-content active" id="enrolled-tab">
+                    <div class="course-grid" id="enrolled-courses"></div>
+                    <div class="empty-state" id="empty-enrolled" style="display: none;">
+                        <div class="empty-state-icon">
+                            📚
+                        </div>
+                        <h3>No Courses Enrolled Yet</h3>
+                        <p>Start learning today! Browse our catalog and enroll in courses that interest you.</p><button class="btn btn-primary" data-page="courses">Browse Courses</button>
+                    </div>
+                </div>
+                <div class="tab-content" id="completed-tab" style="display: none;">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">
+                            🎓
+                        </div>
+                        <h3>No Completed Courses</h3>
+                        <p>Complete your enrolled courses to see them here!</p>
+                    </div>
+                </div>
+                <div class="tab-content" id="certificates-tab" style="display: none;">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">
+                            📜
+                        </div>
+                        <h3>No Certificates Yet</h3>
+                        <p>Earn certificates by completing courses and assessments.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- COURSE DETAIL PAGE -->
+        <div class="page" id="course-detail-page">
+            <div class="course-detail" id="course-detail-content"></div>
+        </div>
+        <!-- PAYMENT PAGE -->
+        <div class="page" id="payment-page">
+            <div class="about-hero">
+                <h1>Payment Gateway</h1>
+                <p>Secure checkout for your course enrollment</p>
+            </div>
+            <div class="empty-state" style="margin: 4rem auto; max-width: 800px;">
+                <div class="empty-state-icon">
+                    🚧
+                </div>
+                <h3 style="font-size: 2.5rem; margin-bottom: 1.5rem;">Payment Gateway Coming Soon</h3>
+                <p style="font-size: 1.2rem; line-height: 1.8; color: #64748b; max-width: 600px; margin: 0 auto 2rem;">We're currently integrating a secure payment gateway to process your course enrollments. This feature will be available very soon. Thank you for your patience!</p>
+                <div style="background: #dcfce7; border: 2px solid #10b981; border-radius: 16px; padding: 2rem; margin: 2rem auto; max-width: 500px;">
+                    <p style="margin: 0; color: #166534; font-weight: 600; font-size: 1.05rem;">���� <strong>In the meantime:</strong> You can browse our courses, create your account, and add courses to your wishlist. We'll notify you as soon as the payment gateway is live!</p>
+                </div><button class="btn btn-primary" data-page="courses" style="font-size: 1.1rem; padding: 1.2rem 3rem; margin-top: 1rem;">Browse All Courses</button>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>EduVerse</h4>
+                <p>Empowering learners worldwide with free, quality education. Join millions transforming their lives through learning.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#" data-page="home">Home</a></li>
+                    <li><a href="#" data-page="courses">All Courses</a></li>
+                    <li><a href="#" data-page="categories">Categories</a></li>
+                    <li><a href="#" data-page="about">About Us</a></li>
+                    <li><a href="#" data-page="contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Popular Categories</h4>
+                <ul>
+                    <li><a href="#" data-category="technology">IT &amp; Software</a></li>
+                    <li><a href="#" data-category="business">Business</a></li>
+                    <li><a href="#" data-category="health">Health &amp; Wellness</a></li>
+                    <li><a href="#" data-category="marketing">Marketing</a></li>
+                    <li><a href="#" data-category="design">Design</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Accessibility</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 EduVerse. All rights reserved. Making education accessible to everyone, everywhere.</p>
+        </div>
+    </footer>
+    <script src="/_sdk/element_sdk.js"></script>
+    <script>
+        // ========================================
+        // MOCK DATABASE SYSTEM
+        // ========================================
+
+        class MockDatabase {
+            constructor() {
+                this.users = JSON.parse(localStorage.getItem('eduverse_users') || '[]');
+                this.enrollments = JSON.parse(localStorage.getItem('eduverse_enrollments') || '[]');
+                this.contacts = JSON.parse(localStorage.getItem('eduverse_contacts') || '[]');
+                this.currentUser = JSON.parse(localStorage.getItem('eduverse_current_user') || 'null');
+            }
+
+            // User Management
+            createUser(name, email, password) {
+                const existingUser = this.users.find(u => u.email === email);
+                if (existingUser) {
+                    throw new Error('Email already registered');
+                }
+
+                const user = {
+                    id: Date.now().toString(),
+                    name,
+                    email,
+                    password, // In real app, this would be hashed
+                    createdAt: new Date().toISOString(),
+                    enrolledCourses: []
+                };
+
+                this.users.push(user);
+                this.saveUsers();
+                return user;
+            }
+
+            loginUser(email, password) {
+                const user = this.users.find(u => u.email === email && u.password === password);
+                if (!user) {
+                    throw new Error('Invalid email or password');
+                }
+
+                this.currentUser = user;
+                localStorage.setItem('eduverse_current_user', JSON.stringify(user));
+                return user;
+            }
+
+            logoutUser() {
+                this.currentUser = null;
+                localStorage.removeItem('eduverse_current_user');
+            }
+
+            getCurrentUser() {
+                return this.currentUser;
+            }
+
+            isLoggedIn() {
+                return this.currentUser !== null;
+            }
+
+            // Enrollment Management
+            enrollCourse(userId, courseId) {
+                const enrollment = {
+                    id: Date.now().toString(),
+                    userId,
+                    courseId,
+                    enrolledAt: new Date().toISOString(),
+                    progress: 0,
+                    completed: false
+                };
+
+                this.enrollments.push(enrollment);
+                this.saveEnrollments();
+
+                // Update user's enrolled courses
+                if (this.currentUser && this.currentUser.id === userId) {
+                    this.currentUser.enrolledCourses.push(courseId);
+                    localStorage.setItem('eduverse_current_user', JSON.stringify(this.currentUser));
+                }
+
+                return enrollment;
+            }
+
+            isEnrolled(userId, courseId) {
+                return this.enrollments.some(e => e.userId === userId && e.courseId === courseId);
+            }
+
+            getUserEnrollments(userId) {
+                return this.enrollments.filter(e => e.userId === userId);
+            }
+
+            // Contact Management
+            createContact(name, email, subject, message) {
+                const contact = {
+                    id: Date.now().toString(),
+                    name,
+                    email,
+                    subject,
+                    message,
+                    createdAt: new Date().toISOString()
+                };
+
+                this.contacts.push(contact);
+                this.saveContacts();
+                return contact;
+            }
+
+            // Statistics
+            getTotalUsers() {
+                return this.users.length + 30000000; // Add base count
+            }
+
+            getTotalEnrollments() {
+                return this.enrollments.length + 25000000; // Add base count
+            }
+
+            // Storage helpers
+            saveUsers() {
+                localStorage.setItem('eduverse_users', JSON.stringify(this.users));
+            }
+
+            saveEnrollments() {
+                localStorage.setItem('eduverse_enrollments', JSON.stringify(this.enrollments));
+            }
+
+            saveContacts() {
+                localStorage.setItem('eduverse_contacts', JSON.stringify(this.contacts));
+            }
+        }
+
+        // Initialize database
+        const db = new MockDatabase();
+
+        // ========================================
+        // COURSE DATA
+        // ========================================
+
+        const courses = [{
+                id: 1,
+                title: "Complete Digital Marketing Masterclass",
+                category: "marketing",
+                description: "Master SEO, social media, content marketing, email campaigns, and analytics. Build a complete digital marketing skillset from scratch.",
+                icon: "📱",
+                students: "32.4k",
+                duration: "22 hours",
+                level: "beginner",
+                rating: "4.8",
+                price: 12999,
+                modules: [{
+                        title: "Digital Marketing Fundamentals",
+                        duration: "2.5 hours"
+                    },
+                    {
+                        title: "Search Engine Optimization",
+                        duration: "4 hours"
+                    },
+                    {
+                        title: "Social Media Marketing",
+                        duration: "4 hours"
+                    },
+                    {
+                        title: "Email Marketing",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "Content Marketing",
+                        duration: "4 hours"
+                    },
+                    {
+                        title: "Analytics & Measurement",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "Paid Advertising",
+                        duration: "1.5 hours"
+                    }
+                ]
+            },
+            {
+                id: 2,
+                title: "Full Stack Web Development Bootcamp",
+                category: "technology",
+                description: "Learn HTML, CSS, JavaScript, React, Node.js, and MongoDB. Build modern, responsive web applications from scratch.",
+                icon: "💻",
+                students: "48.7k",
+                duration: "75 hours",
+                level: "intermediate",
+                rating: "4.9",
+                price: 25999,
+                modules: [{
+                        title: "HTML & CSS Basics",
+                        duration: "8 hours"
+                    },
+                    {
+                        title: "JavaScript Programming",
+                        duration: "15 hours"
+                    },
+                    {
+                        title: "React Framework",
+                        duration: "18 hours"
+                    },
+                    {
+                        title: "Node.js Backend",
+                        duration: "14 hours"
+                    },
+                    {
+                        title: "MongoDB Database",
+                        duration: "10 hours"
+                    },
+                    {
+                        title: "RESTful APIs",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Deployment",
+                        duration: "4 hours"
+                    }
+                ]
+            },
+            {
+                id: 3,
+                title: "Graphic Design Essentials",
+                category: "design",
+                description: "Master design principles, color theory, typography, and layout. Learn Adobe Photoshop and Illustrator from industry experts.",
+                icon: "🎨",
+                students: "24.3k",
+                duration: "28 hours",
+                level: "beginner",
+                rating: "4.7",
+                price: 10999,
+                modules: [{
+                        title: "Design Principles",
+                        duration: "4 hours"
+                    },
+                    {
+                        title: "Color Theory & Psychology",
+                        duration: "4 hours"
+                    },
+                    {
+                        title: "Typography Mastery",
+                        duration: "4 hours"
+                    },
+                    {
+                        title: "Layout & Composition",
+                        duration: "4 hours"
+                    },
+                    {
+                        title: "Adobe Photoshop",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Adobe Illustrator",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Portfolio Creation",
+                        duration: "1 hour"
+                    }
+                ]
+            },
+            {
+                id: 4,
+                title: "Business Strategy & Management",
+                category: "business",
+                description: "Develop strategic thinking, market analysis, competitive positioning, and business planning skills for modern organizations.",
+                icon: "��",
+                students: "29.5k",
+                duration: "30 hours",
+                level: "intermediate",
+                rating: "4.6",
+                price: 14999,
+                modules: [{
+                        title: "Strategic Management Overview",
+                        duration: "4 hours"
+                    },
+                    {
+                        title: "Market Analysis Techniques",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Competitive Strategy",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Business Model Canvas",
+                        duration: "4 hours"
+                    },
+                    {
+                        title: "Financial Planning",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Risk Management",
+                        duration: "4 hours"
+                    },
+                    {
+                        title: "Implementation Strategy",
+                        duration: "3 hours"
+                    }
+                ]
+            },
+            {
+                id: 5,
+                title: "English for Business Communication",
+                category: "languages",
+                description: "Improve business English for emails, presentations, meetings, and negotiations in professional international settings.",
+                icon: "🌍",
+                students: "38.6k",
+                duration: "35 hours",
+                level: "intermediate",
+                rating: "4.8",
+                price: 11999,
+                modules: [{
+                        title: "Business Vocabulary",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Professional Email Writing",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Presentation Skills",
+                        duration: "7 hours"
+                    },
+                    {
+                        title: "Meeting Language",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Negotiation English",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Business Report Writing",
+                        duration: "5 hours"
+                    }
+                ]
+            },
+            {
+                id: 6,
+                title: "Nutrition & Healthy Living",
+                category: "health",
+                description: "Learn nutrition fundamentals, meal planning, weight management, and healthy lifestyle habits for long-term wellness.",
+                icon: "🥗",
+                students: "26.8k",
+                duration: "20 hours",
+                level: "beginner",
+                rating: "4.7",
+                price: 8999,
+                modules: [{
+                        title: "Nutrition Fundamentals",
+                        duration: "4 hours"
+                    },
+                    {
+                        title: "Macronutrients & Micronutrients",
+                        duration: "4 hours"
+                    },
+                    {
+                        title: "Meal Planning",
+                        duration: "4 hours"
+                    },
+                    {
+                        title: "Weight Management",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "Healthy Lifestyle Habits",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "Special Dietary Needs",
+                        duration: "2 hours"
+                    }
+                ]
+            },
+            {
+                id: 7,
+                title: "Python Programming for Beginners",
+                category: "technology",
+                description: "Learn Python from scratch. Perfect for absolute beginners with no coding experience. Build real-world projects.",
+                icon: "🐍",
+                students: "52.3k",
+                duration: "40 hours",
+                level: "beginner",
+                rating: "4.9",
+                price: 15999,
+                modules: [{
+                        title: "Python Basics",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Data Types & Variables",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Control Flow",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Functions & Modules",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "File Handling",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Libraries & Packages",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Real-World Projects",
+                        duration: "6 hours"
+                    }
+                ]
+            },
+            {
+                id: 8,
+                title: "Social Media Marketing Strategy",
+                category: "marketing",
+                description: "Master Facebook, Instagram, LinkedIn, Twitter, and TikTok marketing strategies for business growth.",
+                icon: "📲",
+                students: "36.2k",
+                duration: "24 hours",
+                level: "intermediate",
+                rating: "4.8",
+                price: 11999,
+                modules: [{
+                        title: "Social Media Strategy",
+                        duration: "4 hours"
+                    },
+                    {
+                        title: "Facebook & Instagram Marketing",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "LinkedIn for Business",
+                        duration: "4 hours"
+                    },
+                    {
+                        title: "Twitter Marketing",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "TikTok Strategy",
+                        duration: "4 hours"
+                    },
+                    {
+                        title: "Analytics & ROI",
+                        duration: "4 hours"
+                    }
+                ]
+            },
+            {
+                id: 9,
+                title: "UI/UX Design Masterclass",
+                category: "design",
+                description: "Master user interface and experience design, wireframing, prototyping, and usability testing with industry tools.",
+                icon: "📐",
+                students: "28.9k",
+                duration: "42 hours",
+                level: "intermediate",
+                rating: "4.9",
+                price: 18999,
+                modules: [{
+                        title: "UX Design Principles",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "User Research Methods",
+                        duration: "7 hours"
+                    },
+                    {
+                        title: "Information Architecture",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Wireframing",
+                        duration: "7 hours"
+                    },
+                    {
+                        title: "UI Design",
+                        duration: "8 hours"
+                    },
+                    {
+                        title: "Prototyping with Figma",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Usability Testing",
+                        duration: "3 hours"
+                    }
+                ]
+            },
+            {
+                id: 10,
+                title: "Project Management Professional",
+                category: "business",
+                description: "Learn project planning, scheduling, risk management, and Agile methodologies for successful project delivery.",
+                icon: "📊",
+                students: "34.7k",
+                duration: "50 hours",
+                level: "advanced",
+                rating: "4.8",
+                price: 20999,
+                modules: [{
+                        title: "PM Fundamentals",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Project Initiation",
+                        duration: "7 hours"
+                    },
+                    {
+                        title: "Planning & Scheduling",
+                        duration: "8 hours"
+                    },
+                    {
+                        title: "Resource Management",
+                        duration: "7 hours"
+                    },
+                    {
+                        title: "Risk Management",
+                        duration: "7 hours"
+                    },
+                    {
+                        title: "Agile & Scrum",
+                        duration: "9 hours"
+                    },
+                    {
+                        title: "Project Closure",
+                        duration: "6 hours"
+                    }
+                ]
+            },
+            {
+                id: 11,
+                title: "Data Science with Python",
+                category: "technology",
+                description: "Learn data analysis, visualization, and machine learning with Python, pandas, NumPy, and scikit-learn.",
+                icon: "📊",
+                students: "41.5k",
+                duration: "60 hours",
+                level: "intermediate",
+                rating: "4.9",
+                price: 22999,
+                modules: [{
+                        title: "Python for Data Science",
+                        duration: "8 hours"
+                    },
+                    {
+                        title: "NumPy & Pandas",
+                        duration: "10 hours"
+                    },
+                    {
+                        title: "Data Visualization",
+                        duration: "8 hours"
+                    },
+                    {
+                        title: "Statistical Analysis",
+                        duration: "10 hours"
+                    },
+                    {
+                        title: "Machine Learning Basics",
+                        duration: "14 hours"
+                    },
+                    {
+                        title: "Deep Learning Intro",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Real-World Projects",
+                        duration: "4 hours"
+                    }
+                ]
+            },
+            {
+                id: 12,
+                title: "Spanish for Beginners",
+                category: "languages",
+                description: "Start speaking Spanish from day one. Learn grammar, vocabulary, and conversational skills with native speakers.",
+                icon: "����",
+                students: "31.4k",
+                duration: "35 hours",
+                level: "beginner",
+                rating: "4.7",
+                price: 9999,
+                modules: [{
+                        title: "Spanish Basics",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Grammar Fundamentals",
+                        duration: "7 hours"
+                    },
+                    {
+                        title: "Essential Vocabulary",
+                        duration: "7 hours"
+                    },
+                    {
+                        title: "Conversational Spanish",
+                        duration: "7 hours"
+                    },
+                    {
+                        title: "Listening Practice",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Spanish Culture",
+                        duration: "3 hours"
+                    }
+                ]
+            },
+            {
+                id: 13,
+                title: "Financial Accounting Essentials",
+                category: "finance",
+                description: "Master bookkeeping, financial statements, accounting principles, and financial analysis for business.",
+                icon: "💰",
+                students: "27.3k",
+                duration: "32 hours",
+                level: "beginner",
+                rating: "4.7",
+                price: 13999,
+                modules: [{
+                        title: "Accounting Fundamentals",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Double-Entry Bookkeeping",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Financial Statements",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Adjusting Entries",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Financial Analysis",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Budgeting & Forecasting",
+                        duration: "4 hours"
+                    }
+                ]
+            },
+            {
+                id: 14,
+                title: "Leadership & Team Management",
+                category: "personal",
+                description: "Develop essential leadership skills, learn team dynamics, conflict resolution, and motivational techniques.",
+                icon: "👔",
+                students: "23.8k",
+                duration: "18 hours",
+                level: "intermediate",
+                rating: "4.8",
+                price: 7999,
+                modules: [{
+                        title: "Leadership Styles",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "Team Building",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "Effective Communication",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "Conflict Resolution",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "Motivation Techniques",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "Performance Management",
+                        duration: "3 hours"
+                    }
+                ]
+            },
+            {
+                id: 15,
+                title: "Cybersecurity Fundamentals",
+                category: "technology",
+                description: "Learn to protect systems, networks, and data from cyber threats. Understand security principles and best practices.",
+                icon: "🔒",
+                students: "29.7k",
+                duration: "38 hours",
+                level: "intermediate",
+                rating: "4.7",
+                price: 16999,
+                modules: [{
+                        title: "Security Basics",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Network Security",
+                        duration: "7 hours"
+                    },
+                    {
+                        title: "Ethical Hacking",
+                        duration: "8 hours"
+                    },
+                    {
+                        title: "Cryptography",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Risk Management",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Incident Response",
+                        duration: "5 hours"
+                    }
+                ]
+            },
+            {
+                id: 16,
+                title: "Content Writing & Copywriting",
+                category: "marketing",
+                description: "Master the art of writing compelling content that engages audiences and drives conversions.",
+                icon: "✍️",
+                students: "19.8k",
+                duration: "16 hours",
+                level: "beginner",
+                rating: "4.6",
+                price: 6999,
+                modules: [{
+                        title: "Writing Fundamentals",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "SEO Writing",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "Copywriting Techniques",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "Content Strategy",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "Social Media Copy",
+                        duration: "2 hours"
+                    },
+                    {
+                        title: "Portfolio Building",
+                        duration: "2 hours"
+                    }
+                ]
+            },
+            {
+                id: 17,
+                title: "Photography for Beginners",
+                category: "design",
+                description: "Learn camera settings, composition, lighting, and editing. Start your photography journey with confidence.",
+                icon: "📷",
+                students: "22.6k",
+                duration: "20 hours",
+                level: "beginner",
+                rating: "4.8",
+                price: 8999,
+                modules: [{
+                        title: "Camera Basics",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "Composition Techniques",
+                        duration: "4 hours"
+                    },
+                    {
+                        title: "Lighting Fundamentals",
+                        duration: "4 hours"
+                    },
+                    {
+                        title: "Portrait Photography",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "Landscape Photography",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "Photo Editing",
+                        duration: "3 hours"
+                    }
+                ]
+            },
+            {
+                id: 18,
+                title: "Excel for Business & Finance",
+                category: "finance",
+                description: "Master Microsoft Excel for data analysis, financial modeling, dashboards, and business reporting.",
+                icon: "📊",
+                students: "35.4k",
+                duration: "25 hours",
+                level: "intermediate",
+                rating: "4.8",
+                price: 10999,
+                modules: [{
+                        title: "Excel Fundamentals",
+                        duration: "4 hours"
+                    },
+                    {
+                        title: "Formulas & Functions",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Data Analysis",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "PivotTables",
+                        duration: "4 hours"
+                    },
+                    {
+                        title: "Financial Modeling",
+                        duration: "4 hours"
+                    },
+                    {
+                        title: "Dashboards",
+                        duration: "3 hours"
+                    }
+                ]
+            },
+            {
+                id: 19,
+                title: "Mobile App Development",
+                category: "technology",
+                description: "Build iOS and Android apps using React Native. Learn mobile UI design and app deployment.",
+                icon: "📱",
+                students: "26.9k",
+                duration: "55 hours",
+                level: "intermediate",
+                rating: "4.8",
+                price: 21999,
+                modules: [{
+                        title: "React Native Basics",
+                        duration: "8 hours"
+                    },
+                    {
+                        title: "UI Components",
+                        duration: "10 hours"
+                    },
+                    {
+                        title: "Navigation",
+                        duration: "8 hours"
+                    },
+                    {
+                        title: "State Management",
+                        duration: "9 hours"
+                    },
+                    {
+                        title: "APIs & Data",
+                        duration: "10 hours"
+                    },
+                    {
+                        title: "Publishing Apps",
+                        duration: "10 hours"
+                    }
+                ]
+            },
+            {
+                id: 20,
+                title: "French Language Course",
+                category: "languages",
+                description: "Learn French from beginner to intermediate level. Master grammar, vocabulary, and conversation.",
+                icon: "🇫🇷",
+                students: "24.7k",
+                duration: "40 hours",
+                level: "beginner",
+                rating: "4.7",
+                price: 11999,
+                modules: [{
+                        title: "French Basics",
+                        duration: "7 hours"
+                    },
+                    {
+                        title: "Grammar Essentials",
+                        duration: "8 hours"
+                    },
+                    {
+                        title: "Vocabulary Building",
+                        duration: "7 hours"
+                    },
+                    {
+                        title: "Speaking Practice",
+                        duration: "8 hours"
+                    },
+                    {
+                        title: "Listening Skills",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "French Culture",
+                        duration: "4 hours"
+                    }
+                ]
+            },
+            {
+                id: 21,
+                title: "Mental Health & Wellness",
+                category: "health",
+                description: "Understand mental health, stress management, mindfulness, and strategies for emotional well-being.",
+                icon: "🧠",
+                students: "28.3k",
+                duration: "15 hours",
+                level: "beginner",
+                rating: "4.8",
+                price: 6999,
+                modules: [{
+                        title: "Mental Health Basics",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "Stress Management",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "Anxiety & Depression",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "Mindfulness Practice",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "Self-Care Strategies",
+                        duration: "2 hours"
+                    },
+                    {
+                        title: "Seeking Support",
+                        duration: "1 hour"
+                    }
+                ]
+            },
+            {
+                id: 22,
+                title: "E-commerce Business Setup",
+                category: "business",
+                description: "Learn to start and grow an online store. Master product sourcing, marketing, and sales optimization.",
+                icon: "🛒",
+                students: "21.5k",
+                duration: "28 hours",
+                level: "beginner",
+                rating: "4.6",
+                price: 12999,
+                modules: [{
+                        title: "E-commerce Fundamentals",
+                        duration: "4 hours"
+                    },
+                    {
+                        title: "Product Sourcing",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Store Setup",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Digital Marketing",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Sales Optimization",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Scaling Your Business",
+                        duration: "3 hours"
+                    }
+                ]
+            },
+            {
+                id: 23,
+                title: "Video Editing with Premiere Pro",
+                category: "design",
+                description: "Master Adobe Premiere Pro for professional video editing. Learn color grading, effects, and storytelling.",
+                icon: "🎬",
+                students: "27.8k",
+                duration: "32 hours",
+                level: "beginner",
+                rating: "4.8",
+                price: 13999,
+                modules: [{
+                        title: "Premiere Pro Basics",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Editing Workflow",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Color Grading",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Audio Editing",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Effects & Transitions",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Export & Publishing",
+                        duration: "4 hours"
+                    }
+                ]
+            },
+            {
+                id: 24,
+                title: "Investment & Portfolio Management",
+                category: "finance",
+                description: "Learn to invest in stocks, bonds, and build diversified portfolios. Understand risk and returns.",
+                icon: "📈",
+                students: "30.2k",
+                duration: "30 hours",
+                level: "intermediate",
+                rating: "4.8",
+                price: 14999,
+                modules: [{
+                        title: "Investment Fundamentals",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Stock Market Basics",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Bonds & Fixed Income",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Portfolio Theory",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Risk Management",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Investment Strategies",
+                        duration: "3 hours"
+                    }
+                ]
+            },
+            {
+                id: 25,
+                title: "Public Speaking & Presentation",
+                category: "personal",
+                description: "Overcome fear and become a confident speaker. Master presentation design and delivery techniques.",
+                icon: "🎤",
+                students: "25.9k",
+                duration: "14 hours",
+                level: "beginner",
+                rating: "4.8",
+                price: 6999,
+                modules: [{
+                        title: "Speaking Fundamentals",
+                        duration: "2 hours"
+                    },
+                    {
+                        title: "Overcoming Fear",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "Presentation Design",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "Delivery Techniques",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "Q&A Handling",
+                        duration: "2 hours"
+                    },
+                    {
+                        title: "Practice Sessions",
+                        duration: "1 hour"
+                    }
+                ]
+            },
+            {
+                id: 26,
+                title: "Cloud Computing with AWS",
+                category: "technology",
+                description: "Master Amazon Web Services. Learn EC2, S3, Lambda, and other essential cloud computing services.",
+                icon: "☁️",
+                students: "33.6k",
+                duration: "48 hours",
+                level: "intermediate",
+                rating: "4.8",
+                price: 19999,
+                modules: [{
+                        title: "AWS Fundamentals",
+                        duration: "7 hours"
+                    },
+                    {
+                        title: "EC2 & Compute",
+                        duration: "8 hours"
+                    },
+                    {
+                        title: "Storage Services",
+                        duration: "8 hours"
+                    },
+                    {
+                        title: "Database Services",
+                        duration: "8 hours"
+                    },
+                    {
+                        title: "Networking",
+                        duration: "8 hours"
+                    },
+                    {
+                        title: "Security & IAM",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Serverless",
+                        duration: "3 hours"
+                    }
+                ]
+            },
+            {
+                id: 27,
+                title: "SEO Mastery Course",
+                category: "marketing",
+                description: "Master search engine optimization. Learn keyword research, on-page SEO, link building, and technical SEO.",
+                icon: "🔍",
+                students: "29.4k",
+                duration: "26 hours",
+                level: "intermediate",
+                rating: "4.8",
+                price: 12999,
+                modules: [{
+                        title: "SEO Fundamentals",
+                        duration: "4 hours"
+                    },
+                    {
+                        title: "Keyword Research",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "On-Page SEO",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Off-Page SEO",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Technical SEO",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "SEO Analytics",
+                        duration: "2 hours"
+                    }
+                ]
+            },
+            {
+                id: 28,
+                title: "Yoga & Meditation for Beginners",
+                category: "health",
+                description: "Start your yoga journey with fundamental poses, breathing techniques, and meditation practices.",
+                icon: "🧘",
+                students: "32.7k",
+                duration: "12 hours",
+                level: "beginner",
+                rating: "4.9",
+                price: 5999,
+                modules: [{
+                        title: "Yoga Introduction",
+                        duration: "2 hours"
+                    },
+                    {
+                        title: "Basic Yoga Poses",
+                        duration: "3 hours"
+                    },
+                    {
+                        title: "Breathing Techniques",
+                        duration: "2 hours"
+                    },
+                    {
+                        title: "Meditation Basics",
+                        duration: "2 hours"
+                    },
+                    {
+                        title: "Yoga Sequences",
+                        duration: "2 hours"
+                    },
+                    {
+                        title: "Daily Practice",
+                        duration: "1 hour"
+                    }
+                ]
+            },
+            {
+                id: 29,
+                title: "Human Resource Management",
+                category: "business",
+                description: "Learn recruitment, employee relations, performance management, and HR strategy for modern organizations.",
+                icon: "👥",
+                students: "22.4k",
+                duration: "30 hours",
+                level: "intermediate",
+                rating: "4.6",
+                price: 13999,
+                modules: [{
+                        title: "HR Fundamentals",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Recruitment & Selection",
+                        duration: "6 hours"
+                    },
+                    {
+                        title: "Employee Relations",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Performance Management",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Compensation & Benefits",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Employment Law",
+                        duration: "4 hours"
+                    }
+                ]
+            },
+            {
+                id: 30,
+                title: "Artificial Intelligence Basics",
+                category: "technology",
+                description: "Introduction to AI, machine learning, neural networks, and practical applications in business.",
+                icon: "🤖",
+                students: "37.9k",
+                duration: "35 hours",
+                level: "intermediate",
+                rating: "4.9",
+                price: 17999,
+                modules: [{
+                        title: "AI Overview",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "Machine Learning Basics",
+                        duration: "8 hours"
+                    },
+                    {
+                        title: "Neural Networks",
+                        duration: "7 hours"
+                    },
+                    {
+                        title: "Deep Learning",
+                        duration: "8 hours"
+                    },
+                    {
+                        title: "Natural Language Processing",
+                        duration: "5 hours"
+                    },
+                    {
+                        title: "AI Applications",
+                        duration: "2 hours"
+                    }
+                ]
+            }
+        ];
+
+        let filteredCourses = [...courses];
+        let currentPage = 'home';
+
+        // ========================================
+        // UI HELPER FUNCTIONS
+        // ========================================
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toast-icon');
+            const messageEl = document.getElementById('toast-message');
+
+            icon.textContent = type === 'success' ? '✓' : '⚠��';
+            messageEl.textContent = message;
+
+            toast.className = `toast ${type} show`;
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function setLoading(buttonId, isLoading) {
+            const button = document.getElementById(buttonId);
+            if (!button) return;
+
+            if (isLoading) {
+                button.disabled = true;
+                button.innerHTML += '<span class="spinner"></span>';
+            } else {
+                button.disabled = false;
+                const spinner = button.querySelector('.spinner');
+                if (spinner) spinner.remove();
+            }
+        }
+
+        function updateUI() {
+            const user = db.getCurrentUser();
+            const guestActions = document.getElementById('guest-actions');
+            const userActions = document.getElementById('user-actions');
+            const userAvatar = document.getElementById('user-avatar');
+
+            if (user) {
+                guestActions.style.display = 'none';
+                userActions.classList.add('active');
+                userAvatar.textContent = user.name.charAt(0).toUpperCase();
+            } else {
+                guestActions.style.display = 'flex';
+                userActions.classList.remove('active');
+            }
+
+            // Update stats
+            document.getElementById('stat-users').textContent = formatNumber(db.getTotalUsers()) + '+';
+            document.getElementById('stat-enrollments').textContent = formatNumber(db.getTotalEnrollments()) + '+';
+
+            // Re-render courses to show enrollment status
+            renderCourses(courses, 'featured-courses');
+            renderCourses(filteredCourses, 'all-courses');
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(0) + 'M';
+            }
+            return num.toString();
+        }
+
+        // ========================================
+        // NAVIGATION
+        // ========================================
+
+        function navigateToPage(pageName) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+
+            const targetPage = document.getElementById(`${pageName}-page`);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                currentPage = pageName;
+
+                const navLink = document.querySelector(`.nav-links a[data-page="${pageName}"]`);
+                if (navLink) navLink.classList.add('active');
+
+                window.scrollTo(0, 0);
+
+                // Load dashboard data if navigating to dashboard
+                if (pageName === 'dashboard') {
+                    loadDashboard();
+                }
+            }
+        }
+
+        // ========================================
+        // COURSE RENDERING
+        // ========================================
+
+        function renderCourses(coursesToRender, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            container.innerHTML = '';
+            const coursesToShow = containerId === 'featured-courses' ? coursesToRender.slice(0, 9) : coursesToRender;
+            const user = db.getCurrentUser();
+
+            coursesToShow.forEach(course => {
+                const isEnrolled = user ? db.isEnrolled(user.id, course.id) : false;
+
+                const courseCard = document.createElement('div');
+                courseCard.className = 'course-card';
+                courseCard.onclick = () => showCourseDetail(course.id);
+                courseCard.innerHTML = `
+          ${isEnrolled ? '<div class="enrolled-badge">✓ Enrolled</div>' : ''}
+          <div class="course-image">
+            ${course.icon}
+            <span class="course-level">${course.level}</span>
+          </div>
+          <div class="course-content">
+            <span class="course-category">${course.category}</span>
+            <h3>${course.title}</h3>
+            <p>${course.description}</p>
+            <div class="course-footer">
+              <div class="course-meta">
+                <span>👥 ${course.students}</span>
+                <span>⏱️ ${course.duration}</span>
+                <span class="course-rating">★ ${course.rating}</span>
+              </div>
+              <button class="buy-badge ${isEnrolled ? 'enrolled' : ''}" onclick="event.stopPropagation(); ${isEnrolled ? '' : `showCourseDetail(${course.id});`}">${isEnrolled ? 'ENROLLED' : 'BUY NOW'}</button>
+            </div>
+          </div>
+        `;
+                container.appendChild(courseCard);
+            });
+        }
+
+        function showCourseDetail(courseId) {
+            const course = courses.find(c => c.id === courseId);
+            if (!course) return;
+
+            const user = db.getCurrentUser();
+            const isEnrolled = user ? db.isEnrolled(user.id, course.id) : false;
+
+            const detailContainer = document.getElementById('course-detail-content');
+            detailContainer.innerHTML = `
+        <div class="course-detail-header">
+          ${isEnrolled ? '<div style="background: rgba(255,255,255,0.2); padding: 0.8rem 1.5rem; border-radius: 8px; display: inline-block; margin-bottom: 1rem; font-weight: 700;">✓ You are enrolled in this course</div>' : ''}
+          <h1>${course.title}</h1>
+          <p>${course.description}</p>
+          <div class="course-detail-meta">
+            <span>👥 ${course.students} Students</span>
+            <span>⏱️ ${course.duration}</span>
+            <span>📊 ${course.level.toUpperCase()}</span>
+            <span>★ ${course.rating} Rating</span>
+            <span style="color: #fbbf24; font-weight: 800; font-size: 1.3rem;">₹${course.price.toLocaleString()}</span>
+          </div>
+          ${isEnrolled 
+            ? '<button class="btn" style="margin-top: 1.5rem; font-size: 1.15rem; padding: 1.1rem 2.8rem; background: rgba(255,255,255,0.3); cursor: default;">Already Enrolled</button>'
+            : `<button class="btn btn-secondary" id="enroll-btn-${course.id}" style="margin-top: 1.5rem; font-size: 1.15rem; padding: 1.1rem 2.8rem;" onclick="handleEnrollment(${course.id})">Enroll Now - ₹${course.price.toLocaleString()}</button>`
+          }
+        </div>
+        <div class="course-detail-body">
+          <div class="course-section">
+            <h2>What You'll Learn</h2>
+            <p>This comprehensive course will teach you everything you need to know about ${course.category}. You'll gain practical, job-ready skills that you can apply immediately in real-world scenarios. Perfect for both beginners and professionals looking to upskill.</p>
+          </div>
+          
+          <div class="course-section">
+            <h2>Course Curriculum</h2>
+            <ul class="course-modules">
+              ${course.modules.map(module => `
+                <li class="course-module">
+                  <h4>${module.title}</h4>
+                  <p>Duration: ${module.duration}</p>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+
+          <div class="course-section">
+            <h2>Prerequisites</h2>
+            <p>${course.level === 'beginner' ? 'No prerequisites required. This course is perfect for absolute beginners with no prior experience.' : course.level === 'intermediate' ? 'Basic knowledge of the subject area is recommended but not required. We\'ll review fundamentals before diving deeper.' : 'Strong foundation in the subject area and prior professional experience recommended for this advanced course.'}</p>
+          </div>
+
+          <div class="course-section">
+            <h2>Certificate Upon Completion</h2>
+            <p>Upon completion, you'll receive a professional certificate that you can share on LinkedIn, add to your resume, and showcase to employers. Our certificates are recognized by thousands of companies worldwide.</p>
+          </div>
+
+          ${isEnrolled 
+            ? '<button class="btn" style="width: 100%; font-size: 1.25rem; padding: 1.3rem; background: #94a3b8; cursor: default;">Already Enrolled</button>'
+            : `<button class="btn btn-primary" id="enroll-btn-bottom-${course.id}" style="width: 100%; font-size: 1.25rem; padding: 1.3rem;" onclick="handleEnrollment(${course.id})">Enroll Now - ₹${course.price.toLocaleString()}</button>`
+          }
+        </div>
+      `;
+
+            navigateToPage('course-detail');
+        }
+
+        function handleEnrollment(courseId) {
+            const user = db.getCurrentUser();
+
+            if (!user) {
+                showToast('Please sign in to enroll in courses', 'error');
+                setTimeout(() => navigateToPage('signin'), 1500);
+                return;
+            }
+
+            // Navigate to payment page
+            showPaymentPage(courseId);
+        }
+
+        function showPaymentPage(courseId) {
+            const course = courses.find(c => c.id === courseId);
+            if (!course) return;
+
+            // Simply navigate to the payment page (which shows "Coming Soon" message)
+            navigateToPage('payment');
+        }
+
+        function completePayment(courseId) {
+            const user = db.getCurrentUser();
+            if (!user) return;
+
+            try {
+                db.enrollCourse(user.id, courseId);
+                showToast('🎉 Payment successful! Course enrolled.', 'success');
+                updateUI();
+
+                setTimeout(() => {
+                    navigateToPage('dashboard');
+                }, 1500);
+            } catch (error) {
+                showToast(error.message, 'error');
+            }
+        }
+
+        function filterCourses() {
+            const searchTerm = document.getElementById('search-input') ? .value.toLowerCase() || '';
+            const selectedCategory = document.getElementById('category-filter') ? .value || 'all';
+            const selectedLevel = document.getElementById('level-filter') ? .value || 'all';
+
+            filteredCourses = courses.filter(course => {
+                const matchesSearch = course.title.toLowerCase().includes(searchTerm) ||
+                    course.description.toLowerCase().includes(searchTerm);
+                const matchesCategory = selectedCategory === 'all' || course.category === selectedCategory;
+                const matchesLevel = selectedLevel === 'all' || course.level === selectedLevel;
+                return matchesSearch && matchesCategory && matchesLevel;
+            });
+
+            renderCourses(filteredCourses, 'all-courses');
+        }
+
+        // ========================================
+        // DASHBOARD
+        // ========================================
+
+        function loadDashboard() {
+            const user = db.getCurrentUser();
+            if (!user) {
+                navigateToPage('signin');
+                return;
+            }
+
+            document.getElementById('dashboard-username').textContent = user.name.split(' ')[0];
+
+            const enrollments = db.getUserEnrollments(user.id);
+            const enrolledCoursesContainer = document.getElementById('enrolled-courses');
+            const emptyState = document.getElementById('empty-enrolled');
+
+            if (enrollments.length === 0) {
+                enrolledCoursesContainer.innerHTML = '';
+                emptyState.style.display = 'block';
+            } else {
+                emptyState.style.display = 'none';
+                const enrolledCourses = enrollments.map(e => courses.find(c => c.id === e.courseId)).filter(Boolean);
+                renderCourses(enrolledCourses, 'enrolled-courses');
+            }
+        }
+
+        // ========================================
+        // AUTHENTICATION
+        // ========================================
+
+        document.getElementById('signin-form') ? .addEventListener('submit', async (e) => {
+            e.preventDefault();
+            setLoading('signin-submit', true);
+
+            const email = document.getElementById('signin-email').value;
+            const password = document.getElementById('signin-password').value;
+            const errorEl = document.getElementById('signin-error');
+
+            // Simulate API delay
+            setTimeout(() => {
+                try {
+                    db.loginUser(email, password);
+                    showToast('✓ Signed in successfully!', 'success');
+                    updateUI();
+                    setTimeout(() => {
+                        navigateToPage('dashboard');
+                    }, 1000);
+                } catch (error) {
+                    errorEl.textContent = error.message;
+                    errorEl.classList.add('show');
+                    setTimeout(() => errorEl.classList.remove('show'), 3000);
+                } finally {
+                    setLoading('signin-submit', false);
+                }
+            }, 800);
+        });
+
+        document.getElementById('signup-form') ? .addEventListener('submit', async (e) => {
+            e.preventDefault();
+            setLoading('signup-submit', true);
+
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const confirm = document.getElementById('signup-confirm').value;
+            const errorEl = document.getElementById('signup-error');
+
+            if (password !== confirm) {
+                errorEl.textContent = '⚠️ Passwords do not match!';
+                errorEl.classList.add('show');
+                setLoading('signup-submit', false);
+                setTimeout(() => errorEl.classList.remove('show'), 3000);
+                return;
+            }
+
+            // Simulate API delay
+            setTimeout(() => {
+                try {
+                    db.createUser(name, email, password);
+                    db.loginUser(email, password);
+                    showToast('✓ Account created successfully!', 'success');
+                    updateUI();
+                    setTimeout(() => {
+                        navigateToPage('dashboard');
+                    }, 1000);
+                } catch (error) {
+                    errorEl.textContent = error.message;
+                    errorEl.classList.add('show');
+                    setTimeout(() => errorEl.classList.remove('show'), 3000);
+                } finally {
+                    setLoading('signup-submit', false);
+                }
+            }, 800);
+        });
+
+        document.getElementById('logout-btn') ? .addEventListener('click', () => {
+            db.logoutUser();
+            showToast('Logged out successfully', 'success');
+            updateUI();
+            navigateToPage('home');
+        });
+
+        // ========================================
+        // CONTACT FORM
+        // ========================================
+
+        document.getElementById('contact-form') ? .addEventListener('submit', async (e) => {
+            e.preventDefault();
+            setLoading('contact-submit', true);
+
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            // Simulate API delay
+            setTimeout(() => {
+                try {
+                    db.createContact(name, email, subject, message);
+                    showToast('✓ Thank you! We\'ll get back to you within 24 hours.', 'success');
+                    document.getElementById('contact-form').reset();
+                } catch (error) {
+                    showToast('Failed to send message. Please try again.', 'error');
+                } finally {
+                    setLoading('contact-submit', false);
+                }
+            }, 800);
+        });
+
+        document.getElementById('payment-form') ? .addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const courseId = parseInt(e.target.dataset.courseId);
+            if (!courseId) {
+                showToast('⚠️ Invalid course selection', 'error');
+                return;
+            }
+
+            // In demo mode, show warning and complete enrollment
+            showToast('⚠️ Demo Mode: Simulating payment...', 'success');
+
+            setTimeout(() => {
+                completePayment(courseId);
+            }, 1500);
+        });
+
+        // ========================================
+        // EVENT LISTENERS
+        // ========================================
+
+        document.addEventListener('click', (e) => {
+            if (e.target.hasAttribute('data-page')) {
+                e.preventDefault();
+                navigateToPage(e.target.getAttribute('data-page'));
+            }
+
+            // Close dropdown when clicking outside
+            const dropdown = document.getElementById('dropdown-menu');
+            if (!e.target.closest('.user-avatar') && dropdown.classList.contains('active')) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        document.getElementById('user-avatar') ? .addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.getElementById('dropdown-menu').classList.toggle('active');
+        });
+
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const category = this.dataset.category;
+                if (document.getElementById('category-filter')) {
+                    document.getElementById('category-filter').value = category;
+                    filterCourses();
+                }
+                navigateToPage('courses');
+            });
+        });
+
+        // Dashboard tabs
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+                document.getElementById(this.dataset.tab + '-tab').style.display = 'block';
+            });
+        });
+
+        // Search and filters
+        const searchInput = document.getElementById('search-input');
+        const categoryFilter = document.getElementById('category-filter');
+        const levelFilter = document.getElementById('level-filter');
+
+        if (searchInput) searchInput.addEventListener('input', filterCourses);
+        if (categoryFilter) categoryFilter.addEventListener('change', filterCourses);
+        if (levelFilter) levelFilter.addEventListener('change', filterCourses);
+
+        // ========================================
+        // ELEMENT SDK CONFIG
+        // ========================================
+
+        const defaultConfig = {
+            site_name: "EduVerse",
+            tagline: "Free Online Learning",
+            hero_title: "Empower Yourself with Free Online Courses",
+            hero_subtitle: "Join millions of learners worldwide. Master new skills with 5,000+ free courses. Get certified. Transform your future.",
+            cta_primary: "Browse All Courses",
+            background_color: "#f8fafc",
+            surface_color: "#ffffff",
+            text_color: "#1e293b",
+            primary_color: "#10b981",
+            accent_color: "#f59e0b",
+            font_family: "Inter",
+            font_size: 16
+        };
+
+        async function onConfigChange(config) {
+            const customFont = config.font_family || defaultConfig.font_family;
+            const baseSize = config.font_size || defaultConfig.font_size;
+            const baseFontStack = '-apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif';
+
+            document.getElementById('site-name').textContent = config.site_name || defaultConfig.site_name;
+            document.getElementById('hero-title').textContent = config.hero_title || defaultConfig.hero_title;
+            document.getElementById('hero-subtitle').textContent = config.hero_subtitle || defaultConfig.hero_subtitle;
+            document.getElementById('cta-primary').textContent = config.cta_primary || defaultConfig.cta_primary;
+
+            document.body.style.background = config.background_color || defaultConfig.background_color;
+            document.body.style.color = config.text_color || defaultConfig.text_color;
+
+            document.querySelectorAll('header, .stats-bar, .category-card, .course-card, .feature-card, .auth-card, .search-header').forEach(el => {
+                el.style.background = config.surface_color || defaultConfig.surface_color;
+            });
+
+            const primaryColor = config.primary_color || defaultConfig.primary_color;
+            document.querySelector('.logo').style.color = primaryColor;
+            document.querySelector('.top-bar').style.background = `linear-gradient(135deg, ${primaryColor} 0%, #059669 100%)`;
+            document.querySelectorAll('.btn-primary, .footer-section h4, .auth-link a, .buy-badge, .enrolled-badge').forEach(el => {
+                el.style.background = primaryColor;
+                if (el.classList.contains('auth-link') && el.tagName === 'A') {
+                    el.style.color = primaryColor;
+                    el.style.background = 'transparent';
+                }
+            });
+
+            const accentColor = config.accent_color || defaultConfig.accent_color;
+            document.querySelectorAll('.btn-secondary').forEach(el => {
+                el.style.background = accentColor;
+            });
+
+            document.body.style.fontFamily = `${customFont}, ${baseFontStack}`;
+            document.querySelector('.logo').style.fontSize = `${baseSize * 1.125}px`;
+            document.querySelectorAll('.hero h1').forEach(el => el.style.fontSize = `${baseSize * 2.1875}px`);
+            document.querySelectorAll('.section-title').forEach(el => el.style.fontSize = `${baseSize * 1.75}px`);
+        }
+
+        if (window.elementSdk) {
+            window.elementSdk.init({
+                defaultConfig,
+                onConfigChange,
+                mapToCapabilities: (config) => ({
+                    recolorables: [{
+                            get: () => config.background_color || defaultConfig.background_color,
+                            set: (v) => {
+                                config.background_color = v;
+                                window.elementSdk.setConfig({
+                                    background_color: v
+                                });
+                            }
+                        },
+                        {
+                            get: () => config.surface_color || defaultConfig.surface_color,
+                            set: (v) => {
+                                config.surface_color = v;
+                                window.elementSdk.setConfig({
+                                    surface_color: v
+                                });
+                            }
+                        },
+                        {
+                            get: () => config.text_color || defaultConfig.text_color,
+                            set: (v) => {
+                                config.text_color = v;
+                                window.elementSdk.setConfig({
+                                    text_color: v
+                                });
+                            }
+                        },
+                        {
+                            get: () => config.primary_color || defaultConfig.primary_color,
+                            set: (v) => {
+                                config.primary_color = v;
+                                window.elementSdk.setConfig({
+                                    primary_color: v
+                                });
+                            }
+                        },
+                        {
+                            get: () => config.accent_color || defaultConfig.accent_color,
+                            set: (v) => {
+                                config.accent_color = v;
+                                window.elementSdk.setConfig({
+                                    accent_color: v
+                                });
+                            }
+                        }
+                    ],
+                    borderables: [],
+                    fontEditable: {
+                        get: () => config.font_family || defaultConfig.font_family,
+                        set: (v) => {
+                            config.font_family = v;
+                            window.elementSdk.setConfig({
+                                font_family: v
+                            });
+                        }
+                    },
+                    fontSizeable: {
+                        get: () => config.font_size || defaultConfig.font_size,
+                        set: (v) => {
+                            config.font_size = v;
+                            window.elementSdk.setConfig({
+                                font_size: v
+                            });
+                        }
+                    }
+                }),
+                mapToEditPanelValues: (config) => new Map([
+                    ["site_name", config.site_name || defaultConfig.site_name],
+                    ["tagline", config.tagline || defaultConfig.tagline],
+                    ["hero_title", config.hero_title || defaultConfig.hero_title],
+                    ["hero_subtitle", config.hero_subtitle || defaultConfig.hero_subtitle],
+                    ["cta_primary", config.cta_primary || defaultConfig.cta_primary]
+                ])
+            });
+        }
+
+        // ========================================
+        // INITIALIZATION
+        // ========================================
+
+        renderCourses(courses, 'featured-courses');
+        renderCourses(courses, 'all-courses');
+        updateUI();
+    </script>
+    <script>
+        (function() {
+            function c() {
+                var b = a.contentDocument || a.contentWindow.document;
+                if (b) {
+                    var d = b.createElement('script');
+                    d.innerHTML = "window.__CF$cv$params={r:'9a39a1972341ff6e',t:'MTc2Mzk5NDkwOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+                    b.getElementsByTagName('head')[0].appendChild(d)
+                }
+            }
+            if (document.body) {
+                var a = document.createElement('iframe');
+                a.height = 1;
+                a.width = 1;
+                a.style.position = 'absolute';
+                a.style.top = 0;
+                a.style.left = 0;
+                a.style.border = 'none';
+                a.style.visibility = 'hidden';
+                document.body.appendChild(a);
+                if ('loading' !== document.readyState) c();
+                else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c);
+                else {
+                    var e = document.onreadystatechange || function() {};
+                    document.onreadystatechange = function(b) {
+                        e(b);
+                        'loading' !== document.readyState && (document.onreadystatechange = e, c())
+                    }
+                }
+            }
+        })();
+    </script>
+</body>
+
+</html>
